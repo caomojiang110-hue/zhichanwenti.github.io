@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>世界知识产权日校园活动</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4eaf5 100%);
+            min-height: 100vh;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .title {
+            text-align: center;
+            color: #2c3e50;
+            margin: 20px 0 15px;
+            font-size: 2.2rem;
+            font-weight: 700;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            letter-spacing: 1px;
+        }
+        .rule-card {
+            background: white;
+            padding: 20px;
+            border-radius: 16px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            border: 1px solid #f0f2f5;
+        }
+        .rule-card h3 {
+            color: #2c3e50;
+            margin-bottom: 12px;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .rule-card h3::before {
+            content: "";
+            display: inline-block;
+            width: 4px;
+            height: 20px;
+            background: #3498db;
+            border-radius: 2px;
+        }
+        .rule-card p {
+            color: #58667e;
+            margin: 8px 0;
+            line-height: 1.6;
+            font-size: 1rem;
+        }
+        .rule-card p strong {
+            color: #e67e22;
+            font-weight: 600;
+        }
+        .sticker-prize-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 25px;
+            justify-content: center;
+        }
+        .sticker-count, .prize-level {
+            background: white;
+            padding: 15px 30px;
+            border-radius: 12px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.06);
+            font-size: 1.1rem;
+            font-weight: 600;
+            min-width: 220px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        .sticker-count:hover, .prize-level:hover {
+            transform: translateY(-3px);
+        }
+        .sticker-count {
+            color: #e67e22;
+            border-left: 4px solid #e67e22;
+        }
+        .prize-level {
+            color: #27ae60;
+            border-left: 4px solid #27ae60;
+        }
+        .game-tab {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 25px;
+            justify-content: center;
+        }
+        .game-tab button {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 10px;
+            background: #3498db;
+            color: white;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 10px rgba(52, 152, 219, 0.2);
+        }
+        .game-tab button:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+        }
+        .game-tab button.active {
+            background: #2980b9;
+            box-shadow: 0 4px 12px rgba(41, 128, 185, 0.3);
+            position: relative;
+        }
+        .game-tab button.active::after {
+            content: "";
+            position: absolute;
+            bottom: -6px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 12px;
+            height: 12px;
+            background: #2980b9;
+            clip-path: polygon(50% 100%, 0 0, 100% 0);
+        }
+        .game-content {
+            display: none;
+            background: white;
+            padding: 30px;
+            border-radius: 16px;
+            min-height: 450px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.08);
+            border: 1px solid #f0f2f5;
+            margin-bottom: 30px;
+        }
+        .game-content.show {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .game-content h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f0f2f5;
+        }
+        .game-content p {
+            color: #58667e;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        .question {
+            margin: 20px 0;
+            font-size: 1rem;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            border-left: 4px solid #3498db;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin: 15px 0;
+        }
+        .options button {
+            padding: 12px 15px;
+            text-align: left;
+            background: #f0f2f5;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.2s ease;
+            color: #2c3e50;
+        }
+        .options button:hover {
+            background: #e4eaf5;
+            transform: translateX(5px);
+        }
+        .result {
+            margin-top: 15px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            padding: 10px;
+            border-radius: 8px;
+        }
+        .correct {
+            color: #27ae60;
+            font-weight: 600;
+        }
+        .wrong {
+            color: #e74c3c;
+            font-weight: 600;
+        }
+        textarea, input[type="text"] {
+            width: 100%;
+            padding: 12px 15px;
+            border-radius: 8px;
+            margin-top: 10px;
+            border: 1px solid #dcdfe6;
+            font-size: 1rem;
+            transition: border 0.3s ease;
+            resize: vertical;
+        }
+        textarea:focus, input[type="text"]:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+        }
+        textarea {
+            height: 120px;
+            line-height: 1.6;
+        }
+        .btn-submit {
+            padding: 12px 25px;
+            background: #2ecc71;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 15px;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 10px rgba(46, 204, 113, 0.2);
+        }
+        .btn-submit:hover {
+            background: #27ae60;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(46, 204, 113, 0.3);
+        }
+        .word-box {
+            background: #f8f9fa;
+            padding: 12px 15px;
+            border-radius: 8px;
+            margin: 8px 10px 8px 0;
+            color: #2c3e50;
+            transition: transform 0.2s ease;
+            display: inline-block;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+        }
+        .word-box:hover {
+            transform: translateY(-2px);
+            background: #e4eaf5;
+        }
+        .lang-select {
+            margin: 15px 0;
+            padding: 12px 15px;
+            font-size: 1rem;
+            border-radius: 8px;
+            border: 1px solid #dcdfe6;
+            width: 100%;
+            max-width: 300px;
+            color: #2c3e50;
+            background: white;
+        }
+        .lang-select:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+        }
+        .logo-img {
+            max-width: 100%;
+            height: auto;
+            margin: 15px 0;
+            border-radius: 8px;
+            border: 1px solid #eee;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease;
+        }
+        .logo-img:hover {
+            transform: scale(1.02);
+        }
+        .timer {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #e74c3c;
+            margin: 15px 0;
+            text-align: center;
+        }
+        @media (max-width: 768px) {
+            .title {
+                font-size: 1.8rem;
+            }
+            .game-content {
+                padding: 20px;
+            }
+            .sticker-count, .prize-level {
+                width: 100%;
+                min-width: unset;
+            }
+            .game-tab button {
+                padding: 10px 15px;
+                font-size: 0.9rem;
+            }
+        }
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+            .title {
+                font-size: 1.5rem;
+            }
+            .game-content {
+                min-height: 350px;
+            }
+            .question {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1 class="title">世界知识产权日 · 校园闯关小游戏</h1>
+
+    <div class="rule-card">
+        <h3>活动规则</h3>
+        <p>1. 参与游戏答对题目可获得<strong>贴纸</strong></p>
+        <p>2. 每人每项游戏仅限参与1次</p>
+        <p>3. 贴纸可兑换奖品：1-10=三等奖 | 11-20=二等奖 | 25+=一等奖</p>
+        <p>4. 速答最多10贴，商标找茬最多3贴，翻译最多5贴</p>
+        <p>5. 比划猜词为趣味环节，不计贴纸</p>
+    </div>
+
+    <div class="sticker-prize-container">
+        <div class="sticker-count">当前贴纸总数：<span id="sticker">0</span></div>
+        <div class="prize-level">当前奖品等级：<span id="prize">未达标</span></div>
+    </div>
+
+    <div class="game-tab">
+        <button class="active" onclick="openGame(0)">知产速答</button>
+        <button onclick="openGame(1)">商标找茬</button>
+        <button onclick="openGame(2)">知产翻译官</button>
+        <button onclick="openGame(3)">比划猜词</button>
+    </div>
+
+    <!-- 游戏1：知产速答 -->
+    <div class="game-content show" id="game0">
+        <h3>游戏一：知产问题速答</h3>
+        <p>规则：答对1题得1张贴纸，共10题，最多10张贴纸</p>
+        <div id="qanda"></div>
+        <div class="result" id="qResult"></div>
+        <button class="btn-submit" onclick="startQanda()">开始答题</button>
+    </div>
+
+    <!-- 游戏2：商标找茬 -->
+    <div class="game-content" id="game1">
+        <h3>游戏二：商标找茬</h3>
+        <p>规则：共3题，答对1题得1张贴纸，最多3张贴纸</p>
+        <div id="findLogo"></div>
+        <div class="result" id="fResult"></div>
+        <button class="btn-submit" onclick="startFindLogo()">开始找茬</button>
+    </div>
+
+    <!-- 游戏3：知产翻译官 -->
+    <div class="game-content" id="game2">
+        <h3>游戏三：知产翻译官</h3>
+        <p>规则：选择语种 → 随机5题 → 九选五匹配 → 答对1题得1张贴纸，最多5贴</p>
+        
+        <label>请选择参与者语种：</label>
+        <select class="lang-select" id="lang">
+            <option value="en">英语</option>
+            <option value="jp">日语</option>
+            <option value="kr">韩语</option>
+            <option value="fr">法语</option>
+            <option value="es">西班牙语</option>
+            <option value="ru">俄语</option>
+            <option value="de">德语</option>
+            <option value="ar">阿拉伯语</option>
+        </select>
+        
+        <button class="btn-submit" onclick="startTranslate()">开始翻译游戏</button>
+        <div id="translateGame"></div>
+        <div class="result" id="tResult"></div>
+    </div>
+
+    <!-- 游戏4：比划猜词 -->
+    <div class="game-content" id="game3">
+        <h3>游戏四：知产你比划我猜</h3>
+        <p>规则：2人一组，随机10词，倒计时2分钟，本环节不计贴纸</p>
+        <div class="timer" id="timer">02:00</div>
+        <button class="btn-submit" onclick="startGuess()">开始随机猜词</button>
+        <div id="wordList" style="margin-top:20px;"></div>
+    </div>
+
+<script>
+    let sticker = 0;
+    let gameUsed = [false, false, false, false];
+
+    const questions = [
+        {q:"画画、写文章、作品一完成就自动拥有？",a:"B",o:["A.专利权","B.著作权","C.商标权"]},
+        {q:"“康帅傅”模仿“康师傅”属于？",a:"B",o:["A.合理使用","B.商标近似侵权","C.没有问题"]},
+        {q:"哪一项不能申请专利？",a:"B",o:["A.新药物","B.万有引力定律","C.新手机外形"]},
+        {q:"英语Patent意思是？",a:"C",o:["A.商标权","B.著作权","C.专利权"]},
+        {q:"注册商标有效期一次为？",a:"B",o:["A.5年","B.10年","C.20年"]},
+        {q:"哪个符号代表已注册商标？",a:"B",o:["A.©","B.®","C.™"]},
+        {q:"杯子防漏盖结构可申请？",a:"B",o:["A.商标","B.实用新型专利","C.著作权"]},
+        {q:"上课PPT用网上图片属于？",a:"A",o:["A.合理使用","B.侵权行为","C.没问题"]},
+        {q:"日语「専売特許」是？",a:"C",o:["A.著作权","B.商标权","C.专利权"]},
+        {q:"著作权保护典型对象？",a:"A",o:["A.小说、绘画、摄影","B.品牌名称","C.产品结构"]},
+        {q:"著作权保护期限？",a:"A",o:["A.作者终身+死后50年","B.10年","C.永久"]},
+        {q:"商标主要组成？",a:"B",o:["A.商品价格","B.Logo和品牌名","C.商品原料"]},
+        {q:"外观设计专利保护？",a:"B",o:["A.内部功能","B.外形图案色彩","C.制造方法"]},
+        {q:"英语Trademark意思是？",a:"B",o:["A.专利","B.商标","C.著作权"]},
+        {q:"盗版电影侵犯？",a:"B",o:["A.商标权","B.著作权","C.专利权"]},
+        {q:"我国著作权保护原则？",a:"B",o:["A.登记生效","B.创作完成自动保护","C.发表后保护"]},
+        {q:"商标注册管理机构？",a:"B",o:["A.工商局","B.国家知识产权局","C.法院"]},
+        {q:"专利主要保护？",a:"A",o:["A.技术方案/结构/外观","B.品牌名","C.小说文章"]},
+        {q:"法语droit d'auteur指？",a:"A",o:["A.著作权","B.专利","C.商标"]},
+        {q:"山寨包装和正品一样叫？",a:"A",o:["A.混淆","B.创新","C.参考"]},
+        {q:"不受著作权保护？",a:"C",o:["A.短视频","B.短篇小说","C.日历数字表格"]},
+        {q:"未注册商标™？",a:"B",o:["A.完全不保护","B.有一定保护","C.和注册商标一样"]},
+        {q:"独特香水瓶可申请？",a:"A",o:["A.外观设计专利","B.发明专利","C.软件著作权"]},
+        {q:"原创/抄袭和哪种知产有关？",a:"A",o:["A.著作权","B.专利","C.商标"]},
+        {q:"专利类型不包括？",a:"C",o:["A.发明专利","B.实用新型","C.品牌专利"]},
+        {q:"侵犯商标权行为？",a:"B",o:["A.使用正品","B.近似导致混淆","C.新闻报道使用"]},
+        {q:"韩语저작권意思是？",a:"B",o:["A.商标权","B.著作权","C.专利权"]},
+        {q:"著作权符号？",a:"B",o:["A.®","B.©","C.™"]},
+        {q:"商标核心作用？",a:"B",o:["A.保护内部结构","B.区别来源","C.保护情节"]},
+        {q:"地理标志产品？",a:"B",o:["A.苹果手机","B.阳澄湖大闸蟹","C.可口可乐"]},
+        {q:"西语Derechos de marca是？",a:"A",o:["A.商标权","B.著作权","C.专利权"]},
+        {q:"合理使用不侵权？",a:"A",o:["A.个人学习引用","B.搬运视频涨粉","C.批量印盗版"]}
+    ];
+
+    const logoQuestions = [
+        {
+            q:"1. 拉夫劳伦POLO商标：哪一个是正品？",
+            a:"第三排第一个",
+            imgUrl:"https://p26-flow-imagex-download-sign.byteimg.com/tos-cn-i-a9rns2rl98/7c2bc27453dc4b428e9793ce57a34c5f.png~tplv-a9rns2rl98-24:720:720.png?lk3s=8e244e95&rcl=20260419104327D50EC561A0EE40E606E4&rrcfp=8a172a1a&x-expires=1777171407&x-signature=XZmSs%2Fbnirsbt30IyCstbBU1148%3D"
+        },
+        {
+            q:"2. 老干妈商标：左边和右边哪个是正品？",
+            a:"左边",
+            imgUrl:"https://p26-flow-imagex-download-sign.byteimg.com/tos-cn-i-a9rns2rl98/305be31fb3444611bb55d7d49d5eef36.png~tplv-a9rns2rl98-24:720:720.png?lk3s=8e244e95&rcl=20260419104327D50EC561A0EE40E606E4&rrcfp=8a172a1a&x-expires=1777171407&x-signature=I35ZwH5W34COVIZENhaZ7%2FNMxFE%3D"
+        },
+        {
+            q:"3. 伊利/蒙牛纯牛奶：上方和下方哪个是正品？",
+            a:"上方",
+            imgUrl:"https://p11-flow-imagex-download-sign.byteimg.com/tos-cn-i-a9rns2rl98/5679d42194ae4e0582658c9085524e95.png~tplv-a9rns2rl98-24:720:720.png?lk3s=8e244e95&rcl=20260419104327D50EC561A0EE40E606E4&rrcfp=8a172a1a&x-expires=1777171407&x-signature=34FNb3SB3quof7Iozg7DQ7y7rqY%3D"
+        },
+        {
+            q:"4. 乔丹商标：左边和右边哪个是正品？",
+            a:"右边",
+            imgUrl:"https://p26-flow-imagex-download-sign.byteimg.com/tos-cn-i-a9rns2rl98/328a6a3122674ae78f1914fba9ca6ebe.png~tplv-a9rns2rl98-24:720:720.png?lk3s=8e244e95&rcl=20260419104327D50EC561A0EE40E606E4&rrcfp=8a172a1a&x-expires=1777171407&x-signature=83n8aV%2BJnbTobsE9tMMo96ZpNyk%3D"
+        },
+        {
+            q:"5. MLB（NY）商标：哪一个是正品？",
+            a:"第三排中间",
+            imgUrl:"https://p3-flow-imagex-download-sign.byteimg.com/tos-cn-i-a9rns2rl98/9675c34bbd914495a7618104a6eace5d.png~tplv-a9rns2rl98-24:720:720.png?lk3s=8e244e95&rcl=20260419104327D50EC561A0EE40E606E4&rrcfp=8a172a1a&x-expires=1777171407&x-signature=RrZhVRZnbyCUceHWjT3tDxF3A1M%3D"
+        },
+        {
+            q:"6. 联想Logo：选项A/B/C哪个是正品？",
+            a:"C",
+            imgUrl:"https://p26-flow-imagex-download-sign.byteimg.com/tos-cn-i-a9rns2rl98/4a7de58185c945d388a04c7e59a97949.png~tplv-a9rns2rl98-24:720:720.png?lk3s=8e244e95&rcl=20260419104327D50EC561A0EE40E606E4&rrcfp=8a172a1a&x-expires=1777171407&x-signature=jpPma4w8HIym6qRdM25DQh4PsQc%3D"
+        },
+        {
+            q:"7. 喜茶Logo：选项A/B/C哪个是正品？",
+            a:"C",
+            imgUrl:"https://p3-flow-imagex-download-sign.byteimg.com/tos-cn-i-a9rns2rl98/c0cfef81198e46f589248546b351d13e.png~tplv-a9rns2rl98-24:720:720.png?lk3s=8e244e95&rcl=20260419104327D50EC561A0EE40E606E4&rrcfp=8a172a1a&x-expires=1777171407&x-signature=w5uaUslc2bX6HUPbDEB2aeHmz2M%3D"
+        },
+        {
+            q:"8. 瑞幸咖啡Logo：上方和下方哪个是正品？",
+            a:"上方",
+            imgUrl:"https://p11-flow-imagex-download-sign.byteimg.com/tos-cn-i-a9rns2rl98/4dcfebfe58e84cc88d680dd9caaaac70.png~tplv-a9rns2rl98-24:720:720.png?lk3s=8e244e95&rcl=20260419104327D50EC561A0EE40E606E4&rrcfp=8a172a1a&x-expires=1777171407&x-signature=vc8A3bCPpDN%2FQKlTMTC%2B74ZnTbA%3D"
+        },
+        {
+            q:"9. 无印良品Logo：左边和右边哪个是正品？",
+            a:"左边",
+            imgUrl:"https://p26-flow-imagex-download-sign.byteimg.com/tos-cn-i-a9rns2rl98/6b7fa8f369944ccb8996c25958ce6c26.png~tplv-a9rns2rl98-24:720:720.png?lk3s=8e244e95&rcl=20260419104327D50EC561A0EE40E606E4&rrcfp=8a172a1a&x-expires=1777171407&x-signature=uK0KLk4d%2FxcWncXi9LzBOEsRXV4%3D"
+        },
+        {
+            q:"10. New Balance（新百伦）Logo：左边和右边哪个是正品？",
+            a:"左边",
+            imgUrl:"https://p11-flow-imagex-download-sign.byteimg.com/tos-cn-i-a9rns2rl98/f6e7e5c3e1114b50b877a204b25151fe.png~tplv-a9rns2rl98-24:720:720.png?lk3s=8e244e95&rcl=20260419104327D50EC561A0EE40E606E4&rrcfp=8a172a1a&x-expires=1777171407&x-signature=dztv1WgRSeuxx%2F5hc1rm3VV3q7E%3D"
+        }
+    ];
+
+    const allWords = [
+        "乔丹","老干妈","康师傅","蜜雪冰城","瑞幸","迪士尼","海底捞",
+        "农夫山泉","伊利","无印良品","泸溪河","《哪吒之魔童闹海》",
+        "《繁花》","风浪越大鱼越贵","《逐玉》","《云南虫谷》",
+        "《李白》","《年轮》","邓紫棋","我的世界"
+    ];
+
+    const transLib = [
+        {
+            cn:"商标",
+            en:"Trademark", jp:"商標", kr:"상표", fr:"Marque déposée",
+            es:"Marca registrada", ru:"Товарный знак", de:"Warenzeichen", ar:"العلامة التجارية"
+        },
+        {
+            cn:"专利",
+            en:"Patent", jp:"特許", kr:"특허", fr:"Brevet",
+            es:"Patente", ru:"Патент", de:"Patent", ar:"براءة الاختراع"
+        },
+        {
+            cn:"著作权",
+            en:"Copyright", jp:"著作権", kr:"저작권", fr:"Droit d’auteur",
+            es:"Derecho de autor", ru:"Авторское право", de:"Urheberrecht", ar:"حق المؤلف"
+        },
+        {
+            cn:"盗版",
+            en:"Piracy", jp:"海賊版", kr:"불법 복제", fr:"Contrefaçon",
+            es:"Piratería", ru:"Пиратство", de:"Raubkopie", ar:"قرصنة"
+        },
+        {
+            cn:"原创",
+            en:"Original", jp:"オリジナル", kr:"오리지널", fr:"Original",
+            es:"Original", ru:"Оригинал", de:"Original", ar:"أصلي"
+        },
+        {
+            cn:"侵权",
+            en:"Infringement", jp:"侵害", kr:"침해", fr:"Violation",
+            es:"Infracción", ru:"Нарушение", de:"Verletzung", ar:"انتهاك"
+        },
+        {
+            cn:"外观设计",
+            en:"Industrial design", jp:"意匠", kr:"의장", fr:"Dessin et modèle",
+            es:"Diseño industrial", ru:"Промышленный образец", de:"Geschmacksmuster", ar:"التصميم الصناعي"
+        },
+        {
+            cn:"发明专利",
+            en:"Invention patent", jp:"発明特許", kr:"발명 특허", fr:"Brevet d’invention",
+            es:"Patente de invención", ru:"Патент на изобретение", de:"Erfindungspatent", ar:"براءة اختراع"
+        },
+        {
+            cn:"注册商标",
+            en:"Registered trademark", jp:"登録商標", kr:"등록상표", fr:"Marque enregistrée",
+            es:"Marca registrada", ru:"Зарегистрированный товарный знак", de:"Eingetragenes Warenzeichen", ar:"علامة تجارية مسجلة"
+        }
+    ];
+
+    window.onload = function(){
+        updateSticker();
+    }
+
+    function openGame(index){
+        let games = document.getElementsByClassName("game-content");
+        let tabs = document.querySelectorAll(".game-tab button");
+        for(let i=0;i<games.length;i++){
+            games[i].classList.remove("show");
+            tabs[i].classList.remove("active");
+        }
+        games[index].classList.add("show");
+        tabs[index].classList.add("active");
+    }
+
+    function updateSticker(){
+        document.getElementById("sticker").innerText = sticker;
+        let level = "未达标";
+        if(sticker>=25) level = "一等奖（25张及以上）";
+        else if(sticker>=11) level = "二等奖（11-20张）";
+        else if(sticker>=1) level = "三等奖（1-10张）";
+        document.getElementById("prize").innerText = level;
+    }
+
+    // 游戏1 速答，每题只能选一次
+    function startQanda(){
+        if(gameUsed[0]){ alert("每项游戏仅限玩1次"); return; }
+        gameUsed[0] = true;
+        let box = document.getElementById("qanda");
+        let res = document.getElementById("qResult");
+        box.innerHTML = "";
+        let correct = 0;
+        let list = questions.sort(()=>Math.random()-0.5).slice(0,10);
+        list.forEach((item,idx)=>{
+            let div = document.createElement("div");
+            div.className = "question";
+            div.innerHTML = `<p>${idx+1}. ${item.q}</p>`;
+            let opt = document.createElement("div");
+            opt.className = "options";
+            item.o.forEach(option=>{
+                let btn = document.createElement("button");
+                btn.innerText = option;
+                btn.onclick = ()=>{
+                    // 禁用本题所有选项
+                    const btns = opt.querySelectorAll("button");
+                    btns.forEach(b => b.disabled = true);
+
+                    if(option.charAt(0) == item.a){
+                        correct++;
+                        if(correct <= 10) sticker++;
+                        btn.style.background="#2ecc71";
+                        btn.style.color="#fff";
+                    }else{
+                        btn.style.background="#e74c3c";
+                        btn.style.color="#fff";
+                    }
+                    updateSticker();
+                    res.innerHTML = `答对 ${correct} 题，获得 ${Math.min(correct,10)} 张贴纸`;
+                }
+                opt.appendChild(btn);
+            });
+            div.appendChild(opt);
+            box.appendChild(div);
+        });
+    }
+
+    // 答案模糊匹配
+    function isAnswerRight(input, standard){
+        let v = input.trim().toLowerCase();
+        let s = standard;
+        if(s === "左边") return v === "左" || v === "左边" || v === "左面";
+        if(s === "右边") return v === "右" || v === "右边" || v === "右面";
+        if(s === "上方") return v === "上" || v === "上方" || v === "上面";
+        if(s === "下方") return v === "下" || v === "下方" || v === "下面";
+        if(s === "第三排第一个") return v === "第三排第一个" || v === "第一列第三个";
+        if(s === "第三排中间") return v === "第三排中间" || v === "第三排第二个" || v === "第二列第三个";
+        if(s === "C") return v === "c" || v === "C";
+        return v === s;
+    }
+
+    // 游戏2 商标找茬
+    function startFindLogo(){
+        if(gameUsed[1]){ alert("每项游戏仅限玩1次"); return; }
+        gameUsed[1] = true;
+        let box = document.getElementById("findLogo");
+        let res = document.getElementById("fResult");
+        box.innerHTML = "";
+        let correct = 0;
+        let select = logoQuestions.sort(()=>Math.random()-0.5).slice(0,3);
+        select.forEach((item,idx)=>{
+            let div = document.createElement("div");
+            div.className = "question";
+            div.innerHTML = `<p>${item.q}</p>`;
+            let img = document.createElement("img");
+            img.src = item.imgUrl;
+            img.alt = `商标${idx+1}`;
+            img.className = "logo-img";
+            div.appendChild(img);
+            let input = document.createElement("input");
+            input.type = "text";
+            input.placeholder = "输入答案：左/右/上/下/序号等";
+            let btn = document.createElement("button");
+            btn.innerText = "提交";
+            btn.style.marginLeft = "10px";
+            btn.style.padding = "8px 15px";
+            btn.style.borderRadius = "6px";
+            btn.style.border = "none";
+            btn.style.background = "#3498db";
+            btn.style.color = "white";
+            btn.style.cursor = "pointer";
+            btn.onclick = ()=>{
+                if(btn.disabled) return;
+                btn.disabled = true;
+                input.disabled = true;
+                if(isAnswerRight(input.value, item.a)){
+                    correct++;
+                    if(correct <= 3) sticker++;
+                    div.innerHTML += `<span class='correct'> 正确！</span>`;
+                }else{
+                    div.innerHTML += `<span class='wrong'> 错误，答案：${item.a}</span>`;
+                }
+                updateSticker();
+                res.innerHTML = `答对 ${correct} 题，获得 ${Math.min(correct,3)} 张贴纸`;
+            }
+            div.appendChild(input);
+            div.appendChild(btn);
+            box.appendChild(div);
+        });
+    }
+
+    // 游戏3 翻译，每题只能选一次
+    function startTranslate(){
+        if(gameUsed[2]){ alert("每项游戏仅限玩1次"); return; }
+        gameUsed[2] = true;
+        const lang = document.getElementById("lang").value;
+        const box = document.getElementById("translateGame");
+        const res = document.getElementById("tResult");
+        box.innerHTML = "";
+        let correct = 0;
+        let exam = transLib.sort(()=>Math.random()-0.5).slice(0,5);
+        exam.forEach((item, idx)=>{
+            const q = document.createElement("div");
+            q.className = "question";
+            q.innerHTML = `<p>${idx+1}. 请翻译：${item[lang]}</p>`;
+            const optWrap = document.createElement("div");
+            optWrap.className = "options";
+            let allCn = transLib.map(x=>x.cn).sort(()=>Math.random()-0.5);
+            allCn.forEach(cn=>{
+                const btn = document.createElement("button");
+                btn.innerText = cn;
+                btn.onclick = ()=>{
+                    // 禁用本题所有选项
+                    const btns = optWrap.querySelectorAll("button");
+                    btns.forEach(b => b.disabled = true);
+
+                    if(cn === item.cn){
+                        correct++;
+                        if(correct <= 5) sticker++;
+                        btn.style.background="#2ecc71";
+                        btn.style.color="#fff";
+                    }else{
+                        btn.style.background="#e74c3c";
+                        btn.style.color="#fff";
+                    }
+                    updateSticker();
+                    res.innerHTML = `答对 ${correct} 题，获得 ${Math.min(correct,5)} 张贴纸`;
+                };
+                optWrap.appendChild(btn);
+            });
+            q.appendChild(optWrap);
+            box.appendChild(q);
+        });
+    }
+
+    // 游戏4 猜词
+    function startGuess(){
+        if(gameUsed[3]){ alert("本游戏仅可体验一次"); return; }
+        gameUsed[3] = true;
+        let selected = allWords.sort(()=>Math.random()-0.5).slice(0,10);
+        let list = document.getElementById("wordList");
+        list.innerHTML = "";
+        selected.forEach(w=>{
+            let d = document.createElement("div");
+            d.className = "word-box";
+            d.innerText = w;
+            list.appendChild(d);
+        });
+        startTimer(120);
+    }
+
+    function startTimer(seconds){
+        let timer = document.getElementById("timer");
+        let interval = setInterval(()=>{
+            seconds--;
+            let m = String(Math.floor(seconds/60)).padStart(2,'0');
+            let s = String(seconds%60).padStart(2,'0');
+            timer.innerText = `${m}:${s}`;
+            if(seconds <= 0){
+                clearInterval(interval);
+                timer.innerText = "时间到！";
+            }
+        }, 1000);
+    }
+</script>
+</body>
+</html>
